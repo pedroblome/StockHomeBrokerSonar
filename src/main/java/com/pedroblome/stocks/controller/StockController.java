@@ -54,8 +54,8 @@ public class StockController {
     @PostMapping(value = "/dto/{id}")
     public boolean dtoStock(@RequestBody StockRetornodto stockRetornodto) {
         Stock stock = stockRepository.findById(stockRetornodto.getId()).get();
-        if (stockRetornodto.getName().equals(stock.getStock_name())
-                && stockRetornodto.getSymbol().equals(stock.getStock_symbol())) {
+        if (stockRetornodto.getName().equals(stock.getStockName())
+                && stockRetornodto.getSymbol().equals(stock.getStockSymbol())) {
             return true;
 
         }
@@ -64,18 +64,21 @@ public class StockController {
     }
 
     @PutMapping("/askbid/{id}")
-    public ResponseEntity<?> updateStock(@RequestBody StockDto stockDto) {
-        System.out.println("informação esta chegando:: " + stockDto.toString());
+    public ResponseEntity<Stock> updateStock(@RequestBody StockDto stockDto) {
+        System.out.println("informação esta chegando: " + stockDto.toString());
+        System.out.println("informação esta chegando: " + stockDto.toString());
+        System.out.println("informação esta chegando: " + stockDto.toString());
+        System.out.println("informação esta chegando: " + stockDto.toString());
         Stock stock = stockRepository.findById(stockDto.getId()).get();
-        stock.setAsk_max(stockDto.getAsk_max());
-        stock.setAsk_min(stockDto.getAsk_min());
-        stock.setBid_max(stockDto.getBid_max());
-        stock.setBid_min(stockDto.getBid_min());
-        stock.setUpdated_on(stockDto.getUpdated_on());
+        stock.setAskMax(stockDto.getaskMax());
+        stock.setAskMin(stockDto.getaskMin());
+        stock.setBidMax(stockDto.getbidMax());
+        stock.setBidMin(stockDto.getbidMin());
+        stock.setUpdatedOn(stockDto.getupdatedOn());
 
         Stock stockUpdate = stockRepository.save(stock);
 
-        return new ResponseEntity<Stock>(stockUpdate, HttpStatus.CREATED);
+        return new ResponseEntity<>(stockUpdate, HttpStatus.CREATED);
 
     }
 

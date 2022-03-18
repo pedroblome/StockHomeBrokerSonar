@@ -15,16 +15,24 @@ import java.time.LocalDateTime;
 public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name= "id")
+    @JoinColumn(name = "id")
     private Long id;
-    private String stock_symbol;
-    private String stock_name;
-    private BigDecimal ask_min;
-    private BigDecimal ask_max;
-    private BigDecimal bid_min;
-    private BigDecimal bid_max;
-    private Timestamp created_on;
-    private Timestamp updated_on;
+    @Column(name = "stockSymbol")
+    private String stockSymbol;
+    @Column(name = "stockName")
+    private String stockName;
+    @Column(name = "askMin")
+    private BigDecimal askMin;
+    @Column(name = "askMax")
+    private BigDecimal askMax;
+    @Column(name = "bidMin")
+    private BigDecimal bidMin;
+    @Column(name = "bidMax")
+    private BigDecimal bidMax;
+    @Column(name = "createdOn")
+    private Timestamp createdOn;
+    @Column(name = "updatedOn")
+    private Timestamp updatedOn;
 
     public Long getId() {
         return id;
@@ -34,73 +42,75 @@ public class Stock {
         this.id = id;
     }
 
-    public String getStock_symbol() {
-        return stock_symbol;
+    public String getStockSymbol() {
+        return stockSymbol;
     }
 
-    public void setStock_symbol(String stock_symbol) {
-        this.stock_symbol = stock_symbol;
+    public void setStockSymbol(String stockSymbol) {
+        this.stockSymbol = stockSymbol;
     }
 
-    public String getStock_name() {
-        return stock_name;
+    public String getStockName() {
+        return stockName;
     }
 
-    public void setStock_name(String stock_name) {
-        this.stock_name = stock_name;
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
     }
 
-    public BigDecimal getAsk_min() {
-        return ask_min;
+    public BigDecimal getAskMin() {
+        return askMin;
     }
 
-    public void setAsk_min(BigDecimal ask_min) {
-        this.ask_min = ask_min;
+    public void setAskMin(BigDecimal askMin) {
+        this.askMin = askMin;
     }
 
-    public BigDecimal getAsk_max() {
-        return ask_max;
+    public BigDecimal getAskMax() {
+        return askMax;
     }
 
-    public void setAsk_max(BigDecimal ask_max) {
-        this.ask_max = ask_max;
+    public void setAskMax(BigDecimal askMax) {
+        this.askMax = askMax;
     }
 
-    public BigDecimal getBid_min() {
-        return bid_min;
+    public BigDecimal getBidMin() {
+        return bidMin;
     }
 
-    public void setBid_min(BigDecimal bid_min) {
-        this.bid_min = bid_min;
+    public void setBidMin(BigDecimal bidMin) {
+        this.bidMin = bidMin;
     }
 
-    public BigDecimal getBid_max() {
-        return bid_max;
+    public BigDecimal getBidMax() {
+        return bidMax;
     }
 
-    public void setBid_max(BigDecimal bid_max) {
-        this.bid_max = bid_max;
+    public void setBidMax(BigDecimal bidMax) {
+        this.bidMax = bidMax;
     }
 
-    public Timestamp getCreated_on() {
-        return created_on;
+    public Timestamp getCreatedOn() {
+        return createdOn;
     }
 
-    public void setCreated_on(Timestamp created_on) {
-        this.created_on = created_on;
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public Timestamp getUpdated_on() {
-        return updated_on;
+    public Timestamp getUpdatedOn() {
+        return updatedOn;
     }
 
-    public void setUpdated_on(Timestamp updated_on) {
-        this.updated_on = updated_on;
+    public void setUpdatedOn(Timestamp updatedOn) {
+        this.updatedOn = updatedOn;
     }
-    public Stock(){
-        this.created_on = Timestamp.valueOf(LocalDateTime.now());
-        this.updated_on = Timestamp.valueOf(LocalDateTime.now());
+
+    public Stock() {
+        this.createdOn = Timestamp.valueOf(LocalDateTime.now());
+        this.updatedOn = Timestamp.valueOf(LocalDateTime.now());
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -112,6 +122,5 @@ public class Stock {
     private int result() {
         return 0;
     }
-    
 
 }

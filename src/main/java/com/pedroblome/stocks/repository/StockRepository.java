@@ -1,6 +1,6 @@
 package com.pedroblome.stocks.repository;
 
-import java.util.List;
+
 import java.util.Optional;
 
 import com.pedroblome.stocks.model.Stock;
