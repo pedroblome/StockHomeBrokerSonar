@@ -3,8 +3,6 @@ package com.pedroblome.stocks.controller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.OrderBy;
-
 import com.pedroblome.stocks.controller.dto.StockDto;
 import com.pedroblome.stocks.controller.dto.StockRetornodto;
 import com.pedroblome.stocks.model.Stock;
@@ -31,7 +29,6 @@ public class StockController {
     @Autowired
     private StockRepository stockRepository;
 
-  
     @GetMapping
     public List<Stock> list() {
         return stockRepository.findAll(Sort.by("id"));
@@ -44,7 +41,7 @@ public class StockController {
 
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format("Id stock is invalid or doenst exists!"));
+                    ("Id stock is invalid or doenst exists!"));
 
         }
 
@@ -53,32 +50,36 @@ public class StockController {
     // verify the user_order BUY SELL
     @PostMapping(value = "/dto/{id}")
     public boolean dtoStock(@RequestBody StockRetornodto stockRetornodto) {
-        Stock stock = stockRepository.findById(stockRetornodto.getId()).get();
-        if (stockRetornodto.getName().equals(stock.getStockName())
+        Stock stock = stockRepository.getById(stockRetornodto.getId());
+        if (stockRepository.findById(stockRetornodto.getId()).isPresent()
+                && stockRetornodto.getName().equals(stock.getStockName())
                 && stockRetornodto.getSymbol().equals(stock.getStockSymbol())) {
             return true;
 
+        } else {
+            return false;
+
         }
-        return false;
 
     }
 
     @PutMapping("/askbid/{id}")
     public ResponseEntity<Stock> updateStock(@RequestBody StockDto stockDto) {
-        System.out.println("informação esta chegando: " + stockDto.toString());
-        System.out.println("informação esta chegando: " + stockDto.toString());
-        System.out.println("informação esta chegando: " + stockDto.toString());
-        System.out.println("informação esta chegando: " + stockDto.toString());
-        Stock stock = stockRepository.findById(stockDto.getId()).get();
-        stock.setAskMax(stockDto.getaskMax());
-        stock.setAskMin(stockDto.getaskMin());
-        stock.setBidMax(stockDto.getbidMax());
-        stock.setBidMin(stockDto.getbidMin());
-        stock.setUpdatedOn(stockDto.getupdatedOn());
+        if (stockRepository.findById(stockDto.getId()).isPresent()) {
+            Stock stock = stockRepository.getById(stockDto.getId());
+            stock.setAskMax(stockDto.getaskMax());
+            stock.setAskMin(stockDto.getaskMin());
+            stock.setBidMax(stockDto.getbidMax());
+            stock.setBidMin(stockDto.getbidMin());
+            stock.setUpdatedOn(stockDto.getupdatedOn());
 
-        Stock stockUpdate = stockRepository.save(stock);
+            Stock stockUpdate = stockRepository.save(stock);
 
-        return new ResponseEntity<>(stockUpdate, HttpStatus.CREATED);
+            return new ResponseEntity<>(stockUpdate, HttpStatus.CREATED);
+
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                ("Id stock is invalid or doenst exists!"));
 
     }
 
