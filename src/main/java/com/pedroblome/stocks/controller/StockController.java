@@ -24,7 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/stocks")
-@CrossOrigin
+@CrossOrigin(origins= "http://localhost:8081")
 public class StockController {
     @Autowired
     private StockRepository stockRepository;
