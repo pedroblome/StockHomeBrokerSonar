@@ -1,7 +1,9 @@
 package com.pedroblome.stocks.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.pedroblome.stocks.controller.dto.StockDto;
 import com.pedroblome.stocks.controller.dto.StockRetornodto;
@@ -21,13 +23,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @RestController
 @RequestMapping("/stocks")
-@CrossOrigin(origins= "http://localhost:8081")
+@CrossOrigin(origins = { "http://localhost:8081", "http://localhost:8088" })
+
 public class StockController {
     @Autowired
     private StockRepository stockRepository;
+
+    // public List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+    // @GetMapping(value = "emitter")
+    // public SseEmitter subscribe(){
+    //     SseEmitter sseEmitter = new SseEmitter();
+    //     try {
+    //         sseEmitter.send(SseEmitter.event().name("INIT"));
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    //     emitters.add(sseEmitter);
+    //     return sseEmitter;
+    // }
+
 
     @GetMapping
     public List<Stock> list() {

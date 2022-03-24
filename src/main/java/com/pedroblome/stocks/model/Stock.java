@@ -47,7 +47,11 @@ public class Stock {
     }
 
     public String getStockName() {
-        return stockName;
+        if (stockName != null) {
+            return stockName;
+        }
+        return " ";
+
     }
 
     public void setStockName(String stockName) {
